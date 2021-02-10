@@ -1,0 +1,6 @@
+Get bot recieving price from binance (done)
+Get bot succesfully purchasing and selling on binance 
+Get bot responding to webhooks and purchasing on binance
+Build bot algorithm for buying on binance 
+
+get bot above features on HOTBIT as it seems to have more coinlistings more frequently
