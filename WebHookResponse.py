@@ -3,8 +3,8 @@ from flask import Flask, request, abort
 
 app = Flask(__name__)
 
-@app.route('/', methods=['POST'])
-def welcome():
+@app.route('/webhook', methods=['POST'])
+def respond():
     print("\n\n Recieved webhook notification")
     sys.stdout.flush()
     if request.method == 'POST':
