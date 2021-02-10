@@ -1,16 +1,8 @@
-import sys
-from flask import Flask, request, abort
+from flask import Flask, request, Response
 
 app = Flask(__name__)
 
 @app.route('/webhook', methods=['POST'])
 def respond():
-    print("\n\n Recieved webhook notification")
-    sys.stdout.flush()
-    if request.method == 'POST':
-        print(request.json['message'])
-        return '',200
-    else:
-        abort(400)
-if __name__ == '__main__':
-    app.run(debug=True)
+    print(request.json)
+    return Response(status=200)
