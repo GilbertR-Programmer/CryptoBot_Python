@@ -1,5 +1,6 @@
 
 from dotenv import load_dotenv
+import time
 load_dotenv()
 
 import os
@@ -23,12 +24,18 @@ ETHBTC_price = client.get_symbol_ticker(symbol='ETHBTC')
 # print full output (dictionary)
 # print(ETHUSD_price)
 print(ETHBTC_price)
+
+btc_balance = client.get_asset_balance(asset='BTC')
+
+print(btc_balance)
 # print just the price
 # print('ethereum price in USD is',ETHUSD_price['price'])
 # print('ethereum price in GBP is',ETHGBP_price['price'])
 
 # make a test order first. This will raise an exception if the order is incorrect.
 try:
+	time.sleep(10)
+	print('howdy')
    #buy_order_limit = client.create_order(
     #    symbol='ETHBTC',
 	#    side='BUY',
