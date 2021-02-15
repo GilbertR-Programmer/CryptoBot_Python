@@ -1,6 +1,10 @@
 
+#Written by Treblig. Project can't be completed due to lack of funds
+#binance has a MIN_NOTIONAL which is basically a limit based on quantity and price and it blocks this bot because i would be buying in decimals
+
 from dotenv import load_dotenv
 import time
+import math
 load_dotenv()
 
 import os
@@ -9,23 +13,25 @@ from binance.enums import *
 from binance.exceptions import BinanceAPIException, BinanceOrderException
 
 # init
-api_key = os.getenv('TEST_API_KEY')
-api_secret = os.getenv('TEST_API_SECRET')
+api_key = os.getenv('API_KEY')
+api_secret = os.getenv('API_SECRET')
 
 client = Client(api_key, api_secret)
 #this sets it to the binance test area
-client.API_URL = 'https://testnet.binance.vision/api'
+#client.API_URL = 'https://testnet.binance.vision/api'
 ## main
 
 
 def checkCurrency(currency):
 	paymentOptions = ["BNB", "BTC", "ETH"]
 	symbol = ""
+	origin =""
 	for payment in paymentOptions:
 		if(TestTrade(currency + payment)):
 			symbol = currency + payment
+			origin = payment
+			beginTrading(symbol,currency,origin)
 			break
-	print(symbol)
 
 def TestTrade(paymentMethod):
 	try:
@@ -40,18 +46,28 @@ def beginTrading(tradeSymbol, targetedCurrencySymbol, originCurrencySymbol):
 	originCurrencyAvailable = client.get_asset_balance(asset=originCurrencySymbol)['free']
 	originCurrencyAvailable = float(originCurrencyAvailable)*0.45
 	i = 0
-	while (client.get_asset_balance(asset=targetedCurrencySymbol) is type(None)):
+	precision = int(client.get_symbol_info(symbol=tradeSymbol)['baseAssetPrecision'])
+	stepSize = float(client.get_symbol_info(symbol=tradeSymbol)['filters'][2]['stepSize'])
+	
+	while (i == 0):
 		if(i>0):
 			print('allo')
-		buyInPrice = client.get_ticker(symbol=tradeSymbol)['askPrice']
+		
 		try:
-			
-   			buy_order = client.order_limit_buy(
-				symbol=tradeSymbol,
-				quantity=originCurrencyAvailable/buyInPrice,
-				price=buyInPrice,
+			buyInPrice = float(client.get_ticker(symbol=tradeSymbol)['askPrice'])
+			purchaseQuantity = originCurrencyAvailable/buyInPrice
+			availableSteps = math.trunc(purchaseQuantity/stepSize)
+			purchaseQuantity = availableSteps * stepSize
+			purchaseQuantity = round(purchaseQuantity,precision)
+			print(purchaseQuantity*buyInPrice)
+			print("amount buying",purchaseQuantity)
+			buy_order = client.order_limit_buy(
+			symbol=tradeSymbol,
+			quantity=purchaseQuantity,
+			price=round(buyInPrice,precision),
 			)
-			
+			print(buy_order['orderId'])
+		
 
 		except BinanceAPIException as e:
 			print(e)
@@ -60,10 +76,10 @@ def beginTrading(tradeSymbol, targetedCurrencySymbol, originCurrencySymbol):
 
 		time.sleep(1)
 		i += 1
-		print(buy_order['orderId'])
+		print(buyInPrice)
 
-
-beginTrading("EOSETH","EOS","ETH")
+checkCurrency("AVAX")
+#beginTrading("AVAXBNB","AVAX","BNB")
 
 
 # get latest price from Binance API
@@ -117,4 +133,4 @@ beginTrading("EOSETH","EOS","ETH")
 #print('after buying balance of btc:',client.get_asset_balance(asset='BTC'))
 #print('after buying balance of eth:',client.get_asset_balance(asset='ETH'))
 #print(client.get_asset_balance(asset='EOS')['free'])
-print(client.get_account())
+#print(client.get_account())
