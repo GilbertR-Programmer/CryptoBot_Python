@@ -128,7 +128,7 @@ def endTrading(tradeSymbol, buyInPrice, purchaseQuantity):
 endTrading("WANBNB",0.00488,19.0)
 
 #minor testing for the get _symbol_ticker(part of development)
-print(Decimal(client.get_symbol_ticker(symbol="OGNBNB")['price']))
+#print(Decimal(client.get_symbol_ticker(symbol="OGNBNB")['price']))
 
 # get latest price from Binance API
 #ETHGBP_price = 0
