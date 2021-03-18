@@ -42,7 +42,7 @@ def testTrade(paymentMethod):
 	return True
 
 def beginTrading(tradeSymbol, targetedCurrencySymbol, originCurrencySymbol):
-	console.log("Beginning Buying")
+	print("Beginning Buying")
 	buyInPrice = 0
 	purchaseQuantity = 0
 	orderId = ''
@@ -150,9 +150,13 @@ def endTrading(tradeSymbol, buyInPrice, targetedCurrencySymbol):
 
 @app.route('/webhook', methods=['POST'])
 def respond():
-    print("running on",request.json['currency'])
-    checkCurrency(request.json['currency'])
-    return Response(status=200)
+    try:
+        print("running on",request.json['currency'])
+        checkCurrency(request.json['currency'])
+        return Response(status=200)
+    except Error as e:
+        return Response(status=200)
+    
 
 @app.route('/running')
 def running():
