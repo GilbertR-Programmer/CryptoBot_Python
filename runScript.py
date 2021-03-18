@@ -42,6 +42,7 @@ def testTrade(paymentMethod):
 	return True
 
 def beginTrading(tradeSymbol, targetedCurrencySymbol, originCurrencySymbol):
+    console.log("Beginning Buying")
 	buyInPrice = 0
 	purchaseQuantity = 0
 	orderId = ''
@@ -95,6 +96,7 @@ def beginTrading(tradeSymbol, targetedCurrencySymbol, originCurrencySymbol):
 		endTrading(tradeSymbol,buyInPrice, targetedCurrencySymbol)
 
 def endTrading(tradeSymbol, buyInPrice, targetedCurrencySymbol):
+    console.log("Beginning Selling")
 	sellPrice = 0
 	orderMade = False
 	orderId = ''
