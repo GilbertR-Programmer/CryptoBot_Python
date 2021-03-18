@@ -96,7 +96,7 @@ def beginTrading(tradeSymbol, targetedCurrencySymbol, originCurrencySymbol):
 		endTrading(tradeSymbol,buyInPrice, targetedCurrencySymbol)
 
 def endTrading(tradeSymbol, buyInPrice, targetedCurrencySymbol):
-	console.log("Beginning Selling")
+	print("Beginning Selling")
 	sellPrice = 0
 	orderMade = False
 	orderId = ''
