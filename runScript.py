@@ -155,6 +155,7 @@ def respond():
         checkCurrency(request.json['currency'])
         return Response(status=200)
     except Error as e:
+        print(e)
         return Response(status=200)
     
 
