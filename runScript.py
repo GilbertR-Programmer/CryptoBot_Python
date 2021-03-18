@@ -154,8 +154,8 @@ def respond():
         print("running on",request.json['currency'])
         checkCurrency(request.json['currency'])
         return Response(status=200)
-    except Error as e:
-        print(e)
+    except:
+        print("something went not as expected (probably currency stuff)")
         return Response(status=200)
     
 
