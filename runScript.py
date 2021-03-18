@@ -148,8 +148,8 @@ def endTrading(tradeSymbol, buyInPrice, targetedCurrencySymbol):
 
 @app.route('/webhook', methods=['POST'])
 def respond():
-    print(request.json['currency'])
-    #checkCurrency(request.json['currency'])
+    print("running on",request.json['currency'])
+    checkCurrency(request.json['currency'])
     return Response(status=200)
 
 @app.route('/running')
