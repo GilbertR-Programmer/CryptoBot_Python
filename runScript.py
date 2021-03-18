@@ -52,7 +52,7 @@ def beginTrading(tradeSymbol, targetedCurrencySymbol, originCurrencySymbol):
 	precision = int(client.get_symbol_info(symbol=tradeSymbol)['baseAssetPrecision'])
 	stepSize = Decimal(client.get_symbol_info(symbol=tradeSymbol)['filters'][2]['stepSize'])
 	
-	while ((Decimal(client.get_asset_balance(asset=targetedCurrencySymbol)['free']) <= 0) and (i < 2)):
+	while ((Decimal(client.get_asset_balance(asset=targetedCurrencySymbol)['free']) <= 0) and (i < 3)):
 		if(i>0):
 			try:
 				print("canceling",orderId)
@@ -73,8 +73,11 @@ def beginTrading(tradeSymbol, targetedCurrencySymbol, originCurrencySymbol):
 			purchaseQuantity = round(purchaseQuantity,precision)
 			print("price buying at",buyInPrice)
 			print("amount buying",purchaseQuantity)
-			buy_order = client.order_limit_buy(
+			buy_order = client.create_order(
 			symbol=tradeSymbol,
+			side='BUY',
+			type='LIMIT',
+			timeInForce='GTC',
 			quantity=purchaseQuantity,
 			price=round(buyInPrice,precision),
 			)
