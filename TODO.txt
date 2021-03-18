@@ -1,11 +1,9 @@
 Get bot recieving price from binance (done)
 Get bot succesfully purchasing and selling on binance (done)
 Get bot responding to webhooks (done)
-Get bot webhooks working on aws
-Combine webhook and buying
-Build bot algorithm for buying on binance 
-add logging to bot
-Allow access to actual binance account and let run
+Get bot webhooks working on aws (done)
+Combine webhook and buying (done)
+Build bot algorithm for buying on binance (N/A)
+add logging to bot (done)
+Allow access to actual binance account and let run ()
 
-
-get bot above features on HOTBIT as it seems to have more coinlistings more frequently
