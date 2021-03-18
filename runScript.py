@@ -130,8 +130,11 @@ def endTrading(tradeSymbol, buyInPrice, targetedCurrencySymbol):
 				if(sellPrice > Decimal(buyInPrice) * Decimal(1.002004)):
 					print("price selling at",sellPrice)
 					print("amount selling",quantityOwned)
-					sell_order = client.order_limit_sell(
+					sell_order = client.create_order(
 					symbol=tradeSymbol,
+					side='SELL',
+					type='LIMIT',
+					timeInForce='GTC',
 					quantity=quantityOwned,
 					price=sellPrice,
 					)
