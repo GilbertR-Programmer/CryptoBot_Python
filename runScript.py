@@ -52,7 +52,7 @@ def beginTrading(tradeSymbol, targetedCurrencySymbol, originCurrencySymbol):
 	precision = int(client.get_symbol_info(symbol=tradeSymbol)['baseAssetPrecision'])
 	stepSize = Decimal(client.get_symbol_info(symbol=tradeSymbol)['filters'][2]['stepSize'])
 	
-	while ((Decimal(client.get_asset_balance(asset=targetedCurrencySymbol)['free']) <= 0) or (i < 2)):
+	while ((Decimal(client.get_asset_balance(asset=targetedCurrencySymbol)['free']) <= 0) and (i < 2)):
 		if(i>0):
 			try:
 				print("canceling",orderId)
