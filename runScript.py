@@ -119,7 +119,7 @@ def endTrading(tradeSymbol, buyInPrice, targetedCurrencySymbol):
 		quantityOwned = Decimal(client.get_asset_balance(asset=targetedCurrencySymbol)['free'])
 		try:
 			i = 0
-			while((orderMade == False) or (i > 9)):
+			while((orderMade == False) and (i < 9)):
 				sellPrice = Decimal(client.get_symbol_ticker(symbol=tradeSymbol)['price'])
 				sellPrice = round(sellPrice,precision)
 				print("testing Price",sellPrice)
