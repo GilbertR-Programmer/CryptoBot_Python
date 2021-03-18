@@ -89,7 +89,7 @@ def beginTrading(tradeSymbol, targetedCurrencySymbol, originCurrencySymbol):
 		time.sleep(2)
 		i += 1
 	
-	if(i <= 2):
+	if((i <= 2) and (i > 0)):
 		print("BOUGHT")
 		time.sleep(25)
 		endTrading(tradeSymbol,buyInPrice, targetedCurrencySymbol)
