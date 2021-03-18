@@ -133,7 +133,7 @@ def endTrading(tradeSymbol, buyInPrice, targetedCurrencySymbol):
 					orderMade = True
 			
 					orderId = sell_order['orderId']
-                i += 1
+				i += 1
 		
 
 		except BinanceAPIException as e:
