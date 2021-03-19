@@ -23,15 +23,20 @@ client = Client(api_key, api_secret)
 
 
 def checkCurrency(currency):
-	paymentOptions = ["BNB", "BTC"]
-	symbol = ""
-	origin = ""
-	for payment in paymentOptions:
-		if(testTrade(currency + payment)):
-			symbol = currency + payment
-			origin = payment
-			beginTrading(symbol,currency,origin)
-			break
+	tradeReady = False
+	while(tradeReady == False):
+		print("testing if " + currency + " is live")
+		paymentOptions = ["BNB", "BTC"]
+		symbol = ""
+		origin = ""
+		for payment in paymentOptions:
+			if(testTrade(currency + payment)):
+				symbol = currency + payment
+				origin = payment
+				tradeReady = True
+				beginTrading(symbol,currency,origin)
+				break
+		
 
 def testTrade(paymentMethod):
 	try:
@@ -158,9 +163,9 @@ def endTrading(tradeSymbol, buyInPrice, targetedCurrencySymbol):
 def respond():
 	try:
 		print("running on",request.json['currency'])
-		return Response(status=200)
-		#checkCurrency(request.json['currency'])
 		#return Response(status=200)
+		checkCurrency(request.json['currency'])
+		return Response(status=200)
 	except:
 		print("something went not as expected (probably currency stuff)")
 		return Response(status=200)
