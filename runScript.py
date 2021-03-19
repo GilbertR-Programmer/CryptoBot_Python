@@ -156,18 +156,18 @@ def endTrading(tradeSymbol, buyInPrice, targetedCurrencySymbol):
 
 @app.route('/webhook', methods=['POST'])
 def respond():
-    try:
+	try:
 		return Response(status=200)
-        print("running on",request.json['currency'])
-        #checkCurrency(request.json['currency'])
-        #return Response(status=200)
-    except:
-        print("something went not as expected (probably currency stuff)")
-        return Response(status=200)
-    
+		print("running on",request.json['currency'])
+		#checkCurrency(request.json['currency'])
+		#return Response(status=200)
+	except:
+		print("something went not as expected (probably currency stuff)")
+		return Response(status=200)
+
 
 @app.route('/running')
 def running():
-  return 'Yes The System is running'
+	return 'Yes The System is running'
 
 app.run(host='0.0.0.0', port=80)
