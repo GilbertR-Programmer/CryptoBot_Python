@@ -36,6 +36,7 @@ def checkCurrency(currency):
 				tradeReady = True
 				beginTrading(symbol,currency,origin)
 				break
+		time.sleep(3)
 		
 
 def testTrade(paymentMethod):
