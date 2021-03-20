@@ -165,6 +165,7 @@ globalCurrencySymbol = ""
 def respond():
 	try:
 		#print("running on",request.json['currency'])
+		print("pre response")
 		globalCurrencySymbol = request.json['currency']
 		#return Response(status=200)
 		#checkCurrency(request.json['currency'])
@@ -175,7 +176,7 @@ def respond():
 
 @app.after_request
 def after_request_func(response):
-	print("after_request is running!")
+	print("post response")
 	print("running on",globalCurrencySymbol)
 	return response
 
