@@ -23,20 +23,21 @@ client = Client(api_key, api_secret)
 
 
 def checkCurrency(currency):
-	tradeReady = False
-	while(tradeReady == False):
-		print("testing if " + currency + " is live")
-		paymentOptions = ["BNB", "BTC"]
-		symbol = ""
-		origin = ""
-		for payment in paymentOptions:
-			if(testTrade(currency + payment)):
-				symbol = currency + payment
-				origin = payment
-				tradeReady = True
-				beginTrading(symbol,currency,origin)
-				break
-		time.sleep(3)
+	print("running on", currency)
+	#tradeReady = False
+	#while(tradeReady == False):
+	#	print("testing if " + currency + " is live")
+	#	paymentOptions = ["BNB", "BTC"]
+	#	symbol = ""
+	#	origin = ""
+	#	for payment in paymentOptions:
+	#		if(testTrade(currency + payment)):
+	#			symbol = currency + payment
+	#			origin = payment
+	#			tradeReady = True
+	#			beginTrading(symbol,currency,origin)
+	#			break
+	#	time.sleep(3)
 		
 
 def testTrade(paymentMethod):
@@ -159,27 +160,20 @@ def endTrading(tradeSymbol, buyInPrice, targetedCurrencySymbol):
 		time.sleep(2)
 	print("SOLD")
 
-globalCurrencySymbol = ""
 
 @app.route('/webhook', methods=['POST'])
 def respond():
 	try:
 		#print("running on",request.json['currency'])
 		print("pre response")
-		globalCurrencySymbol = request.json['currency']
+		currencySymbol = request.json['currency']
 		#return Response(status=200)
 		#checkCurrency(request.json['currency'])
+		Thread(target = my_task(currencySymbol)).start()
 		return Response(status=200)
 	except:
 		print("something went not as expected (probably currency stuff)")
 		return Response(status=200)
-
-@app.after_request
-def after_request_func(response):
-	print("post response")
-	print("running on",globalCurrencySymbol)
-	return response
-
 
 @app.route('/running')
 def running():
