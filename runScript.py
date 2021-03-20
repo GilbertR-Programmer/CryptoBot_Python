@@ -159,17 +159,25 @@ def endTrading(tradeSymbol, buyInPrice, targetedCurrencySymbol):
 		time.sleep(2)
 	print("SOLD")
 
+globalCurrencySymbol = ""
 
 @app.route('/webhook', methods=['POST'])
 def respond():
 	try:
-		print("running on",request.json['currency'])
+		#print("running on",request.json['currency'])
+		globalCurrencySymbol = request.json['currency']
 		#return Response(status=200)
-		checkCurrency(request.json['currency'])
+		#checkCurrency(request.json['currency'])
 		return Response(status=200)
 	except:
 		print("something went not as expected (probably currency stuff)")
 		return Response(status=200)
+
+@app.after_request
+def after_request_func(response):
+	print("after_request is running!")
+	print("running on",globalCurrencySymbol)
+	return response
 
 
 @app.route('/running')
